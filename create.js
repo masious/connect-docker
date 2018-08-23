@@ -32,15 +32,18 @@ platform.core.node({
     const exposedPorts = {}
     inputs.ports.forEach(port => exposedPorts[`${port}/tcp`] = {})
 
+    const env = Object.keys(inputs.envVars)
+      .map(key => `${key}=${inputs.envVars[key]}`)
+
     const volumes = {}
     inputs.volumes.forEach(v => volumes[v] = {})
 
     docker.createContainer({
       Image: inputs.image,
       name: randomString(10),
+      env,
       volumes,
       exposedPorts,
-      env: inputs.envVars,
       labels: inputs.labels,
     })
     .then(container =>

@@ -1,5 +1,6 @@
 const platform = require('connect-platform');
 const docker = require('./connection');
+const { randomString } = require('./utils')
 
 platform.core.node({
   path: '/docker/create',
@@ -53,13 +54,3 @@ platform.core.node({
     })
   }
 );
-
-function randomString(len) {
-  const chars = 'abcdefghijklmnopqrstuvwxyz'
-  const charsLength = chars.length
-  let result = ''
-  for (var i = 0; i < len; i++) {
-    result += chars[Math.floor(Math.random() * charsLength)]
-  }
-  return result;
-}

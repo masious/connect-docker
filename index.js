@@ -32,7 +32,8 @@ module.exports.platform = {
        * package, without the extension.
        *
        */
-      native : ['hellow']
+      native : ['create', 'check-image', 'pull'],
+      json: ['nk5qtzl0wzys']
     },
     /**
      *

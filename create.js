@@ -7,7 +7,14 @@ platform.core.node({
   public: false,
   method: 'GET',
 
-  inputs: ['image', 'envVars', 'ports', 'volumes', 'labels'],
+  inputs: [
+    'image',
+    'envVars',
+    'ports',
+    'volumes',
+    'labels',
+    'network'
+  ],
   outputs: ['id'],
   controlOutputs: ['error'],
   hints: {
@@ -17,7 +24,8 @@ platform.core.node({
       ports: 'Ports that the container should expose',
       image: 'Docker image name',
       labels: 'Object of labels',
-      volumes: 'Container volumes'
+      volumes: 'Container volumes',
+      network: 'If you want to assign the container to a network, use this key.'
     },
     outputs: {
       id: 'ID of the created container'
@@ -29,30 +37,60 @@ platform.core.node({
 },
   function (inputs, output, control, error) {
     const panelSecret = randomString(20)
-    const exposedPorts = {}
-    inputs.ports.forEach(port => exposedPorts[`${port}/tcp`] = {})
-
-    const env = Object.keys(inputs.envVars)
-      .map(key => `${key}=${inputs.envVars[key]}`)
-
-    const volumes = {}
-    inputs.volumes.forEach(v => volumes[v] = {})
-
-    docker.createContainer({
+    
+    const spec = {
       Image: inputs.image,
-      name: randomString(10),
-      env,
+      name: randomString(10)
+    }
+
+    const {
+      ports,
+      envVars,
       volumes,
-      exposedPorts,
-      labels: inputs.labels,
-    })
+      network,
+      labels
+    } = inputs;
+
+    if (ports) {
+      const exposedPorts = {}
+      ports.forEach(port => exposedPorts[`${port}/tcp`] = {})
+      spec.exposedPorts = exposedPorts
+    }
+
+    if (envVars) {
+      spec.env = Object.keys(envVars)
+       .map(key => `${key}=${envVars[key]}`)
+    }
+
+    if (volumes) {
+      const volumes = {}
+      volumes.forEach(v => volumes[v] = {})
+      spec.volumes = volumes
+    }
+
+    if (labels) {
+      spec.labels = labels
+    }
+
+    console.log('just about to')
+    if (network) {
+      console.log(network)
+      spec.networkingConfig = {
+        endpointsConfig: {
+          [network]: {}
+        }
+      }
+    }
+
+    docker.createContainer(spec)
     .then(container =>
       container.start()
     )
     .then(({ id }) => {
-      output('id', id)
+      output('id', spec.name)
     })
     .catch(err => {
+      console.log(err)
       control('error')
     })
   }

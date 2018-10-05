@@ -32,7 +32,7 @@ module.exports.platform = {
        * package, without the extension.
        *
        */
-      native : ['create', 'check-image', 'pull'],
+      native : ['create', 'check-image', 'pull', 'remove', 'kill'],
       json: ['nk5qtzl0wzys']
     },
     /**

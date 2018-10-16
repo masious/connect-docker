@@ -24,11 +24,10 @@ platform.core.node({
   function (inputs, output, control) {
     docker
       .getContainer(inputs.id)
-      .then(container => {
-        return container.kill()
-      })
-      .then((err, data) => {
+      .kill((err, data) => {
         if (err) {
+          console.log(err);
+          
           control('error')
           return
         }

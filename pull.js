@@ -51,12 +51,5 @@ platform.core.node({
         }
       }
     );
-      /*.then((stream) => {
-        console.log(stream);
-        control('done')
-      })
-      .catch(err => {
-        output('error', err.message)
-      })*/
   }
 );

@@ -11,20 +11,22 @@ platform.core.node({
     'image',
     'envVars',
     'ports',
-    'volumes'
+    'volumes',
+    'networks'
   ],
   outputs: ['id'],
   controlOutputs: ['error'],
   hints: {
-    node: 'Creates & starts a docker container with the given inputs',
+    node: 'Creates & starts a docker container with the given inputs.',
     inputs: {
-      envVars: 'Variables that should be accessible within container',
-      ports: 'Ports that the container should expose',
-      image: 'Docker image name',
-      volumes: 'Container volumes',
+      envVars: 'Variables that should be accessible within container.',
+      ports: 'Ports that the container should expose.',
+      image: 'Docker image name.',
+      volumes: 'Container volumes.',
+      networks: 'Networks to be connected to. With possibility to include config.'
     },
     outputs: {
-      id: 'ID of the created container'
+      id: 'ID of the created container.'
     },
     controlOutputs: {
       error: 'There is an error!'
@@ -42,24 +44,32 @@ platform.core.node({
     const {
       ports,
       envVars,
-      volumes
+      volumes,
+      networks
     } = inputs;
 
     if (ports) {
       const exposedPorts = {}
       ports.forEach(port => exposedPorts[`${port}/tcp`] = {})
-      spec.exposedPorts = exposedPorts
+      spec.ExposedPorts = exposedPorts
     }
 
     if (envVars) {
-      spec.env = Object.keys(envVars)
+      spec.Env = Object.keys(envVars)
        .map(key => `${key}=${envVars[key]}`)
     }
 
     if (volumes) {
       const tempVolumes = {}
       volumes.forEach(v => tempVolumes[v] = {})
-      spec.volumes = tempVolumes
+      spec.Volumes = tempVolumes
+    }
+
+    if (Array.isArray(networks)) {
+      spec.NetworkingConfig = {};
+      spec.NetworkingConfig.EndpointsConfig = networks.reduce((o, val) => { o[val] = {}; return o; }, {});
+
+      console.log(spec.NetworkingConfig);
     }
 
     docker.createContainer(spec)

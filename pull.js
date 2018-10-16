@@ -22,12 +22,41 @@ platform.core.node({
 },
   function (inputs, output, control) {
     docker
-      .pull(inputs.image)
-      .then(() => {
+    .pull(
+      inputs.image,
+      function(err, stream) {
+        console.log("Image pull started. Stream from CLI will follow");
+
+        docker.modem.followProgress(stream, onFinished, onProgress);
+
+        function onFinished(err, output) {
+          console.log("Output event log:");
+          console.log("---------START---------");
+          console.log(output);
+          console.log("----------END----------");
+
+          if(err) {
+            output('error', err);
+          } else {
+            control('done');
+          }
+        }
+
+        function onProgress(event) {
+          console.log("Progress event log:");
+          console.log("---------START---------");
+          console.log(event);
+          console.log("----------END----------");
+
+        }
+      }
+    );
+      /*.then((stream) => {
+        console.log(stream);
         control('done')
       })
       .catch(err => {
         output('error', err.message)
-      })
+      })*/
   }
 );

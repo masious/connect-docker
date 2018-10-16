@@ -11,9 +11,7 @@ platform.core.node({
     'image',
     'envVars',
     'ports',
-    'volumes',
-    'labels',
-    'network'
+    'volumes'
   ],
   outputs: ['id'],
   controlOutputs: ['error'],
@@ -23,9 +21,7 @@ platform.core.node({
       envVars: 'Variables that should be accessible within container',
       ports: 'Ports that the container should expose',
       image: 'Docker image name',
-      labels: 'Object of labels',
       volumes: 'Container volumes',
-      network: 'If you want to assign the container to a network, use this key.'
     },
     outputs: {
       id: 'ID of the created container'
@@ -46,9 +42,7 @@ platform.core.node({
     const {
       ports,
       envVars,
-      volumes,
-      network,
-      labels
+      volumes
     } = inputs;
 
     if (ports) {
@@ -63,23 +57,9 @@ platform.core.node({
     }
 
     if (volumes) {
-      const volumes = {}
-      volumes.forEach(v => volumes[v] = {})
-      spec.volumes = volumes
-    }
-
-    if (labels) {
-      spec.labels = labels
-    }
-
-    console.log('just about to')
-    if (network) {
-      console.log(network)
-      spec.networkingConfig = {
-        endpointsConfig: {
-          [network]: {}
-        }
-      }
+      const tempVolumes = {}
+      volumes.forEach(v => tempVolumes[v] = {})
+      spec.volumes = tempVolumes
     }
 
     docker.createContainer(spec)

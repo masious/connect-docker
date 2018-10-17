@@ -32,8 +32,15 @@ module.exports.platform = {
        * package, without the extension.
        *
        */
-      native : ['create', 'check-image', 'pull', 'remove', 'kill', 'container/inspect'],
-      json: ['nk5qtzl0wzys']
+      native: [
+        'container/create',
+        'container/inspect',
+
+        'check-image',
+        'pull',
+        'remove',
+        'kill'
+      ]
     },
     /**
      *
@@ -44,7 +51,6 @@ module.exports.platform = {
      *
      */
     aliases: {
-      '/test/hellow': '/test-package/hellow',
     }
   }
 }

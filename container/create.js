@@ -61,9 +61,23 @@ platform.core.node({
     }
 
     if (volumes) {
-      const tempVolumes = {}
-      volumes.forEach(v => tempVolumes[v] = {})
-      spec.Volumes = tempVolumes
+      var tempVolumes = {};
+      var tempBinds = [];
+      volumes.forEach(function(volume) {
+        var destination = volume;
+
+        if(volume.indexOf(':') > -1) {
+          destination = volume.split(':')[1];
+          tempBinds.push(volume);
+        }
+        
+        tempVolumes[destination] = {};
+      });
+
+      spec.Volumes = tempVolumes;
+      spec.HostConfig = {
+        Binds: tempBinds
+      };
     }
 
     if (Array.isArray(networks)) {

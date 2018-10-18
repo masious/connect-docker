@@ -18,6 +18,7 @@
   "homepage": "https://github.com/masious/connect-docker#readme",
   "dependencies": {
     "connect-platform": "^0.2.7",
+    "connect-platform-redis": "0.0.1",
     "dockerode": "^2.5.5"
   }
 }

@@ -62,3 +62,4 @@ typings/
 
 # connect platform files
 /secure
+/panel-generated

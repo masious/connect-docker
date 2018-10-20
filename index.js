@@ -37,6 +37,7 @@ module.exports.platform = {
         'container/inspect',
         'container/kill',
         'container/stop',
+        'container/start',
 
         'check-image',
         'pull',

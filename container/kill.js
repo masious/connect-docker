@@ -1,8 +1,8 @@
 const platform = require('connect-platform');
-const docker = require('./connection')
+const docker = require('../connection')
 
 platform.core.node({
-  path: '/docker/kill',
+  path: '/docker/container/kill',
   public: false,
   method: 'GET',
 

@@ -35,11 +35,11 @@ module.exports.platform = {
       native: [
         'container/create',
         'container/inspect',
+        'container/kill',
 
         'check-image',
         'pull',
         'remove',
-        'kill'
       ]
     },
     /**

@@ -10,14 +10,14 @@ platform.core.node({
   outputs: [],
   controlOutputs: ['success', 'error'],
   hints: {
-    node: 'Kills the given container',
+    node: 'Kills the given container.',
     inputs: {
-      image: 'ID of the container to kill',
+      image: 'Id of the container to kill.',
     },
     outputs: {},
     controlOutputs: {
-      success: 'Killed successfully',
-      error: 'Unable to kill'
+      success: 'An output flag to indicate if the container was killed successfully.',
+      error: 'An output flag to indicate if an error was triggered.'
     }
   }
 },

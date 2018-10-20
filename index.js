@@ -36,6 +36,7 @@ module.exports.platform = {
         'container/create',
         'container/inspect',
         'container/kill',
+        'container/stop',
 
         'check-image',
         'pull',

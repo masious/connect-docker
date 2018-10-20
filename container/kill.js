@@ -12,7 +12,7 @@ platform.core.node({
   hints: {
     node: 'Kills the given container.',
     inputs: {
-      image: 'Id of the container to kill.',
+      id: 'Id of the container to kill.',
     },
     outputs: {},
     controlOutputs: {

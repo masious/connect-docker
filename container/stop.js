@@ -12,7 +12,7 @@ platform.core.node({
   hints: {
     node: 'Stops the given container.',
     inputs: {
-      image: 'Id of the container to stop.',
+      id: 'Id of the container to stop.',
     },
     outputs: {},
     controlOutputs: {

@@ -10,7 +10,7 @@ platform.core.node({
   outputs: [],
   controlOutputs: ['success', 'error'],
   hints: {
-    node: 'Stops the given container.',
+    node: 'Starts the given container.',
     inputs: {
       id: 'Id of the container to start.',
     },

@@ -54,5 +54,9 @@ module.exports.platform = {
      */
     aliases: {
     }
+  },
+  hints: {
+    setup:
+`All you need is a Docker instance running and for the Docker.sock to be accessible to the instance you are running`,
   }
 }

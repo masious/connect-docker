@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/masious/connect-docker#readme",
   "dependencies": {
-    "connect-platform": "^0.2.7",
+    "connect-platform": "^0.2.10",
     "dockerode": "^2.5.5"
   }
 }

@@ -39,6 +39,7 @@ module.exports.platform = {
         'container/remove',
         'container/stop',
         'container/start',
+        'container/rename',
 
         'check-image',
         'pull',

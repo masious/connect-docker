@@ -36,6 +36,7 @@ module.exports.platform = {
         'container/create',
         'container/inspect',
         'container/kill',
+        'container/remove',
         'container/stop',
         'container/start',
 

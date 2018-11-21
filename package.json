@@ -1,6 +1,6 @@
 {
   "name": "connect-docker",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Expose docker-engine api as a call in connect-platform",
   "main": ".",
   "scripts": {

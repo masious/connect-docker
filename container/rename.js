@@ -6,13 +6,14 @@ platform.core.node({
   public: false,
   method: 'GET',
 
-  inputs: ['id'],
+  inputs: ['id', 'name'],
   outputs: [],
   controlOutputs: ['success', 'error'],
   hints: {
     node: 'Rename the given container.',
     inputs: {
       id: 'Id of the container to rename.',
+      name: 'New name of the container.'
     },
     outputs: {},
     controlOutputs: {
@@ -24,7 +25,7 @@ platform.core.node({
   function (inputs, output, control) {
     docker
       .getContainer(inputs.id)
-      .rename((err, data) => {
+      .rename({'name': inputs.name }, (err, data) => {
         if (err) {
           console.log(err);
           

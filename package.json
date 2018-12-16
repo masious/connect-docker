@@ -1,6 +1,6 @@
 {
   "name": "connect-docker",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Expose docker-engine api as a call in connect-platform",
   "main": ".",
   "scripts": {
@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/masious/connect-docker#readme",
   "dependencies": {
-    "connect-platform": "^0.2.10",
     "dockerode": "^2.5.5"
+  },
+  "peerDependencies": {
+    "connect-platform": "*"
   }
 }

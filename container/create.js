@@ -12,7 +12,8 @@ platform.core.node({
     'envVars',
     'ports',
     'volumes',
-    'networks'
+    'networks',
+    'user'
   ],
   outputs: ['id'],
   controlOutputs: ['error'],
@@ -44,7 +45,8 @@ platform.core.node({
       ports,
       envVars,
       volumes,
-      networks
+      networks,
+      user
     } = inputs;
 
     spec.name = name;
@@ -78,6 +80,10 @@ platform.core.node({
       spec.HostConfig = {
         Binds: tempBinds
       };
+    }
+
+    if (user != "") {
+      spec.User = user;
     }
 
     if (Array.isArray(networks)) {

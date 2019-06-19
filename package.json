@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/masious/connect-docker#readme",
   "dependencies": {
+    "deepmerge": "^3.2.1",
     "dockerode": "^2.5.5"
   },
   "peerDependencies": {

@@ -1,5 +1,6 @@
 const platform = require('connect-platform');
 const docker = require('../connection');
+const deepmerge = require('deepmerge');
 
 platform.core.node({
   path: '/docker/container/create',
@@ -13,7 +14,8 @@ platform.core.node({
     'ports',
     'volumes',
     'networks',
-    'user'
+    'user',
+    'options'
   ],
   outputs: ['id'],
   controlOutputs: ['error'],
@@ -25,7 +27,9 @@ platform.core.node({
       envVars: 'Variables that should be accessible within container.',
       ports: 'Ports that the container should expose.',
       volumes: 'Container volumes.',
-      networks: 'Networks to be connected to. With possibility to include config.'
+      networks: 'Networks to be connected to. With possibility to include config.',
+      user: 'User to be associated with container.',
+      options: 'Additional optional parameters.'
     },
     outputs: {
       id: 'Id of the created container.'
@@ -46,7 +50,8 @@ platform.core.node({
       envVars,
       volumes,
       networks,
-      user
+      user,
+      options
     } = inputs;
 
     spec.name = name;
@@ -91,7 +96,9 @@ platform.core.node({
       spec.NetworkingConfig.EndpointsConfig = networks.reduce((o, val) => { o[val] = {}; return o; }, {});
     }
 
-    docker.createContainer(spec)
+    const finalSpec = deepmerge(spec, options);
+    console.log(finalSpec);
+    docker.createContainer(finalSpec)
     .then(container =>
       container.start()
     )
